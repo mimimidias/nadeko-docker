@@ -2,7 +2,7 @@
 
 ## New Features
 
- - First version
+ - Update
 
 ## Enhancements
 
