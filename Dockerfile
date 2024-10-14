@@ -7,6 +7,7 @@ COPY . .
 
 RUN chmod u+x ./install-nadeko.sh && ./install-nadeko.sh
 
-RUN mv creds.yml nadekobot/output/creds.yml
+# RUN mv creds.yml nadekobot/output/creds.yml
+
 
 CMD ["/bin/bash", "-c", "./n-run.sh"]

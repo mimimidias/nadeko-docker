@@ -2,7 +2,7 @@
 
 ## New Features
 
- - First version
+ - Update
 
 ## Enhancements
 
@@ -10,7 +10,7 @@
 
 ## Fixes
 
- - N/A
+ - Commenting the creds file
 
 ## Compatibility Breaker
 
