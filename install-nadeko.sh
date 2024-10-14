@@ -1,44 +1,33 @@
 #!/bin/sh
 
-git clone -b v4 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
+echo "Welcome to NadekoBot installer"
+echo ""
 
 root=$(pwd)
+    
+base_url="https://gitlab.com/Kwoth/nadeko-bash-installer/-/raw/v4"
 
-cd nadekobot
+script_prereq="n-prereq.sh"
+script_install="n-download.sh"
+script_run="n-run.sh"
 
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-dotnet restore -f --no-cache
-dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
+echo ""
+echo "Downloading the prerequisites installer script"
+rm "$root/$script_prereq" 1>/dev/null 2>&1
+wget -N "$base_url/$script_prereq" && bash "$root/$script_prereq"
+echo ""
 
-cd "$root"
-
-mv -f nadekobot_old/output/creds.yml nadekobot/output/creds.yml 1>/dev/null 2>&1
-mv -f nadekobot_old/output/credentials.json nadekobot/output/credentials.json 1>/dev/null 2>&1
-
-rm -rf nadekobot/output/data/strings_new 1>/dev/null 2>&1
-mv -fT nadekobot/output/data/strings nadekobot/output/data/strings_new 1>/dev/null 2>&1
-
-rm -rf nadekobot_old/output/data/strings_old 1>/dev/null 2>&1
-rm -rf nadekobot_old/output/data/strings_new 1>/dev/null 2>&1
-
-
-mv -f nadekobot/output/data/aliases.yml nadekobot/output/data/aliases_new.yml 1>/dev/null 2>&1
+echo ""
+echo "Downloading the NadekoBot installer script"
+rm "$root/$script_install" 1>/dev/null 2>&1
+wget -N "$base_url/$script_install" && bash "$root/$script_install"
+echo ""
 
 
-mv -f nadekobot_old/output/data/NadekoBot.db nadekobot/output/data/NadekoBot.db 1>/dev/null 2>&1
+echo ""
+echo "Downloading the NadekoBot run script"
+rm "$root/$script_run" 1>/dev/null 2>&1
+wget -N "$base_url/$script_run""
+echo ""
 
-
-cp -RT nadekobot_old/output/data/ nadekobot/output/data 1>/dev/null 2>&1
-
-
-mv -f nadekobot/output/data/aliases.yml nadekobot/output/data/aliases_old.yml 1>/dev/null 2>&1
-
-mv -f nadekobot/output/data/aliases_new.yml nadekobot/output/data/aliases.yml 1>/dev/null 2>&1
-
-
-mv -f nadekobot/output/data/strings nadekobot/output/data/strings_old 1>/dev/null 2>&1
-
-mv -f nadekobot/output/data/strings_new nadekobot/output/data/strings 1>/dev/null 2>&1
-
-rm "$root/rebuild.sh"
-exit 0
+echo "Finished Downloading and installing Nadeko. Ready to run!"
