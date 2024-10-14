@@ -5,7 +5,6 @@ RUN SVER=$( grep -oP "[0-9]+" /etc/debian_version | head -1 )
 
 COPY . .
 
-RUN chmod u+x ./install-prereq.sh && ./install-prereq.sh
 RUN chmod u+x ./install-nadeko.sh && ./install-nadeko.sh
 RUN chmod u+x ./run-nadeko.sh
 
