@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 
 RUN apt-get update
-RUN apt-get install apt-transport-https git tmux redis-server libopus0 opus-tools libopus-dev libsodium-dev python ffmpeg -y
+RUN apt-get install apt-transport-https git tmux redis-server libopus0 opus-tools libopus-dev libsodium-dev python3 ffmpeg -y
 RUN wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl
 
 RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot && cd nadekobot
