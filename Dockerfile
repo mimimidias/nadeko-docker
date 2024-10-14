@@ -5,9 +5,9 @@ RUN apt-get install apt-transport-https git tmux redis-server libopus0 opus-tool
 RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp && chmod a+rx /usr/local/bin/yt-dlp
 
 
-RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot && cd nadekobot
+RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
-RUN dotnet restore -f --no-cache && dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
+RUN cd nadekobot && dotnet restore -f --no-cache && dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
 
 RUN mv -f nadekobot_old/output/creds.yml nadekobot/output/creds.yml 1>/dev/null 2>&1 && \
     mv -f nadekobot_old/output/credentials.json nadekobot/output/credentials.json 1>/dev/null 2>&1 && \
