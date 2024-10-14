@@ -5,10 +5,6 @@ RUN SVER=$( grep -oP "[0-9]+" /etc/debian_version | head -1 )
 
 COPY . .
 
-RUN chmod u+x ./install-prereq.sh && ./install-prereq.sh
 RUN chmod u+x ./install-nadeko.sh && ./install-nadeko.sh
-RUN chmod u+x ./run-nadeko.sh
 
-# RUN mv creds.yml nadekobot/output/creds.yml
-
-CMD ["/bin/bash", "-c", "./run-nadeko.sh"]
+CMD ["/bin/bash", "-c", "export root=$(pwd) && cd '$root/nadekobot/output' && echo 'Running NadekoBot. Please wait.' && dotnet NadekoBot.dll" ]
