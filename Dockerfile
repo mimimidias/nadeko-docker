@@ -1,16 +1,12 @@
-# Use Ubuntu 22.04 as the base image
-FROM ubuntu:22.04
-
-# Set non-interactive mode for apt-get
-ENV DEBIAN_FRONTEND=noninteractive
+# Use the .NET SDK 8.0 image as the base image
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 
 # Set the working directory
 WORKDIR /app
 
-# Install necessary packages and .NET SDK in one layer to minimize image size
+# Install necessary packages
 RUN apt-get update && \
     apt-get install -y \
-        wget \
         git \
         tmux \
         libopus0 \
@@ -19,12 +15,7 @@ RUN apt-get update && \
         libsodium-dev \
         python3 \
         ffmpeg \
-        && rm -rf /var/lib/apt/lists/* \
-        && wget "https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb \
-        && dpkg -i packages-microsoft-prod.deb \
-        && apt-get update \
-        && apt-get install -y dotnet-sdk-8.0 \
-        && rm -f packages-microsoft-prod.deb
+        && rm -rf /var/lib/apt/lists/*
 
 # Install yt-dlp
 RUN wget -O /usr/local/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
@@ -40,7 +31,7 @@ RUN wget -q -N https://gitlab.com/Kwoth/nadeko-bash-installer/-/raw/v5/detectOS.
     bash rebuild.sh && \
     rm -f rebuild.sh detectOS.sh
 
-# Cleanup unnecessary files and package lists
+# Cleanup unnecessary files
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Specify the command to run when the container starts
