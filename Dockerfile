@@ -9,19 +9,19 @@ RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 RUN cd nadekobot && dotnet restore -f --no-cache && dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
 
-RUN mv -f nadekobot_old/output/creds.yml nadekobot/output/creds.yml 1>/dev/null 2>&1 && \
-    mv -f nadekobot_old/output/credentials.json nadekobot/output/credentials.json 1>/dev/null 2>&1 && \
-    rm -rf nadekobot/output/data/strings_new 1>/dev/null 2>&1 && \
-    mv -fT nadekobot/output/data/strings nadekobot/output/data/strings_new 1>/dev/null 2>&1 && \
-    rm -rf nadekobot_old/output/data/strings_old 1>/dev/null 2>&1 && \
-    rm -rf nadekobot_old/output/data/strings_new 1>/dev/null 2>&1 && \
-    mv -f nadekobot/output/data/aliases.yml nadekobot/output/data/aliases_new.yml 1>/dev/null 2>&1 && \
-    mv -f nadekobot_old/output/data/NadekoBot.db nadekobot/output/data/NadekoBot.db 1>/dev/null 2>&1 && \
-    cp -RT nadekobot_old/output/data/ nadekobot/output/data 1>/dev/null 2>&1 && \
-    mv -f nadekobot/output/data/aliases.yml nadekobot/output/data/aliases_old.yml 1>/dev/null 2>&1 && \
-    mv -f nadekobot/output/data/aliases_new.yml nadekobot/output/data/aliases.yml 1>/dev/null 2>&1 && \
-    mv -f nadekobot/output/data/strings nadekobot/output/data/strings_old 1>/dev/null 2>&1 && \
-    mv -f nadekobot/output/data/strings_new nadekobot/output/data/strings 1>/dev/null 2>&1
+RUN mv -f nadekobot_old/output/creds.yml nadekobot/output/creds.yml && \
+    mv -f nadekobot_old/output/credentials.json nadekobot/output/credentials.json && \
+    rm -rf nadekobot/output/data/strings_new && \
+    mv -fT nadekobot/output/data/strings nadekobot/output/data/strings_new && \
+    rm -rf nadekobot_old/output/data/strings_old && \
+    rm -rf nadekobot_old/output/data/strings_new && \
+    mv -f nadekobot/output/data/aliases.yml nadekobot/output/data/aliases_new.yml && \
+    mv -f nadekobot_old/output/data/NadekoBot.db nadekobot/output/data/NadekoBot.db && \
+    cp -RT nadekobot_old/output/data/ nadekobot/output/data && \
+    mv -f nadekobot/output/data/aliases.yml nadekobot/output/data/aliases_old.yml && \
+    mv -f nadekobot/output/data/aliases_new.yml nadekobot/output/data/aliases.yml && \
+    mv -f nadekobot/output/data/strings nadekobot/output/data/strings_old && \
+    mv -f nadekobot/output/data/strings_new nadekobot/output/data/strings
 
 # RUN mv creds.yml nadekobot/output/creds.yml
 CMD ["/bin/bash", "-c", "cd nadekobot/output && dotnet NadekoBot.dll"]
