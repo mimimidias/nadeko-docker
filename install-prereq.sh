@@ -8,7 +8,7 @@ rm packages-microsoft-prod.deb
 apt-get update;
 apt-get install -y apt-transport-https && apt-get update;
 apt-get install -y apt-transport-https && apt-get update;
-apt-get install -y dotnet-sdk-8.0;
+apt-get install -y dotnet-sdk-6.0;
 
 echo "Installing Git, Redis and Tmux..."
 apt-get install git tmux redis-server -y
