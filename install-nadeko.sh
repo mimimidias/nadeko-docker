@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
+git clone -b v4 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
 
 root=$(pwd)
 
