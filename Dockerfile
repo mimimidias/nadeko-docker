@@ -1,8 +1,7 @@
 FROM ubuntu:24.04
 
-RUN wget "https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb
-
 RUN apt-get update
+RUN apt-get install wget -y && wget "https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb && apt-get update
 RUN apt-get install apt-transport-https dotnet-sdk-8.0 git tmux redis-server libopus0 opus-tools libopus-dev libsodium-dev python3 ffmpeg libc6 libgcc1 -y
 RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp && chmod a+rx /usr/local/bin/yt-dlp
 
