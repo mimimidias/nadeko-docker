@@ -1,14 +1,14 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 
-RUN apt-get update
-RUN apt-get install wget -y && wget "https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb && apt-get update
-RUN apt-get install apt-transport-https dotnet-sdk-6.0 git tmux redis-server libopus0 opus-tools libopus-dev libsodium-dev python3 ffmpeg libc6 libgcc1 -y
-RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp && chmod a+rx /usr/local/bin/yt-dlp
+RUN VER=$(cat /etc/debian_version)
+RUN SVER=$( grep -oP "[0-9]+" /etc/debian_version | head -1 )
 
-RUN git clone -b v4 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
-ENV ROOT=$(pwd)
-RUN cd nadekobot && dotnet restore -f --no-cache
-RUN cd nadekobot && dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
+COPY . .
 
-CMD ["/bin/bash", "-c", "cd '$root/nadekobot/output' && dotnet NadekoBot.dll"]
+RUN chmod u+x ./install-prereq.sh && ./install-prereq.sh
+RUN chmod u+x ./install-nadeko.sh && ./install-nadeko.sh
+RUN chmod u+x ./run-nadeko.sh
+
+# RUN mv creds.yml nadekobot/output/creds.yml
+
+CMD ["/bin/bash", "-c", "./run-nadeko.sh"]
