@@ -9,5 +9,4 @@ RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 RUN cd nadekobot && dotnet restore -f --no-cache && dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
 
-# RUN mv creds.yml nadekobot/output/creds.yml
 CMD ["/bin/bash", "-c", "cd nadekobot/output && dotnet NadekoBot.dll"]
