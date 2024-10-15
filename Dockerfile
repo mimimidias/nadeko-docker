@@ -7,6 +7,7 @@ RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /us
 RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 ENV ROOT=$(pwd)
+RUN cd nadekobot
 RUN dotnet restore -f --no-cache
 RUN dotnet build src/NadekoBot/NadekoBot.csproj -c Release -o output/
 
