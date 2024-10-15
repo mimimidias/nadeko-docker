@@ -7,6 +7,6 @@ RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /us
 
 RUN git clone -b v5 --recursive --depth 1 https://gitlab.com/Kwoth/nadekobot
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
-RUN cd nadekobot/src/NadekoBot && dotnet restore && dotnet build -o /output/
+RUN cd nadekobot/src/NadekoBot && dotnet restore && dotnet build -c Release -o /output/
 
-CMD ["/bin/bash", "-c", "cd nadekobot/output && dotnet NadekoBot.dll"]
+CMD ["/bin/bash", "-c", "cd output && dotnet NadekoBot.dll"]
