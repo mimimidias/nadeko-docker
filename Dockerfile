@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 RUN apt-get update && apt-get install -y wget apt-transport-https
-RUN wget "https://packages.microsoft.com/config/ubuntu/$VER/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb
+RUN wget "https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb
 RUN apt-get update;
 
 RUN apt-get install -y dotnet-sdk-6.0 git tmux redis-server libopus0 opus-tools libopus-dev libsodium-dev python3 ffmpeg wget
